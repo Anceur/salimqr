@@ -802,7 +802,7 @@ html {
 }
 
 .download-badge {
-    display: flex;
+    /* display: flex; */
     align-items: center;
     gap: 1rem;
     background: rgba(59, 130, 246, 0.1);
