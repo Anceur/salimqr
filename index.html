@@ -5,1595 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MoudirList - L'App Révolutionnaire</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-            background: #0a0e27;
-            color: white;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        /* Animated background with floating elements */
-        .bg-animated {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: radial-gradient(circle at 20% 50%, #1e3a8a 0%, #0f172a 50%, #1e1b4b 100%);
-            animation: bgPulse 10s ease-in-out infinite;
-        }
-
-        @keyframes bgPulse {
-            0%, 100% { background: radial-gradient(circle at 20% 50%, #1e3a8a 0%, #0f172a 50%, #1e1b4b 100%); }
-            50% { background: radial-gradient(circle at 80% 30%, #2563eb 0%, #0f172a 50%, #312e81 100%); }
-        }
-
-        .floating-orbs {
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
-            opacity: 0.1;
-            animation: float 20s infinite ease-in-out;
-            filter: blur(2px);
-        }
-
-        .orb:nth-child(1) { width: 300px; height: 300px; top: 10%; left: -10%; animation-delay: 0s; }
-        .orb:nth-child(2) { width: 200px; height: 200px; top: 60%; right: -5%; animation-delay: 5s; }
-        .orb:nth-child(3) { width: 150px; height: 150px; top: 30%; left: 70%; animation-delay: 10s; }
-        .orb:nth-child(4) { width: 250px; height: 250px; bottom: 20%; left: 30%; animation-delay: 15s; }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) translateX(0px) scale(1); }
-            25% { transform: translateY(-100px) translateX(50px) scale(1.1); }
-            50% { transform: translateY(-200px) translateX(-30px) scale(0.9); }
-            75% { transform: translateY(-50px) translateX(-100px) scale(1.05); }
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            position: relative;
-        }
-
-        /* Asymmetric Header */
-        header {
-            padding: 2rem 0;
-            position: relative;
-        }
-
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(135deg, #60a5fa, #3b82f6, #1d4ed8);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-            animation: logoGlow 3s ease-in-out infinite;
-        }
-
-        @keyframes logoGlow {
-            0%, 100% { filter: drop-shadow(0 0 10px #3b82f6); }
-            50% { filter: drop-shadow(0 0 20px #60a5fa); }
-        }
-
-        .tagline {
-            color: #94a3b8;
-            font-size: 1.1rem;
-            margin-left: auto;
-            max-width: 300px;
-            text-align: right;
-            position: relative;
-        }
-
-        /* Broken Grid Hero Section */
-        .hero-section {
-            min-height: 90vh;
-            display: grid;
-            grid-template-columns: 1.2fr 0.8fr;
-            gap: 4rem;
-            align-items: center;
-            padding: 4rem 0;
-            position: relative;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: clamp(3rem, 8vw, 5.5rem);
-            font-weight: 900;
-            line-height: 0.9;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #ffffff 0%, #60a5fa 50%, #3b82f6 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            position: relative;
-        }
-
-        .hero-title::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: -2rem;
-            width: 60px;
-            height: 3px;
-            background: linear-gradient(90deg, #3b82f6, transparent);
-            animation: lineStretch 2s ease-in-out infinite;
-        }
-
-        @keyframes lineStretch {
-            0%, 100% { width: 60px; }
-            50% { width: 120px; }
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            color: #cbd5e1;
-            line-height: 1.6;
-            margin-bottom: 3rem;
-            max-width: 500px;
-        }
-
-        /* Diagonal Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            transform: rotate(-2deg);
-            margin: 2rem 0;
-        }
-
-        .service-card {
-            background: rgba(59, 130, 246, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 1.5rem;
-            border-radius: 20px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transition: left 0.8s;
-        }
-
-        .service-card:hover::before {
-            left: 100%;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px) rotate(1deg);
-            background: rgba(59, 130, 246, 0.2);
-            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
-        }
-
-        .service-card h3 {
-            color: #60a5fa;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-        }
-
-        /* Floating Phone Mockup */
-        .phone-container {
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .phone-mockup {
-            width: 280px;
-            height: 560px;
-            background: linear-gradient(145deg, #1e293b, #0f172a);
-            border-radius: 40px;
-            padding: 10px;
-            box-shadow: 
-                0 0 50px rgba(59, 130, 246, 0.3),
-                inset 0 0 20px rgba(59, 130, 246, 0.1);
-            animation: phoneFloat 6s ease-in-out infinite;
-            position: relative;
-            transform: perspective(1000px) rotateY(-15deg);
-        }
-
-        @keyframes phoneFloat {
-            0%, 100% { transform: perspective(1000px) rotateY(-15deg) translateY(0px); }
-            50% { transform: perspective(1000px) rotateY(-15deg) translateY(-20px); }
-        }
-
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1e40af, #3730a3);
-            border-radius: 30px;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .app-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            font-weight: 900;
-            color: white;
-            margin-bottom: 1rem;
-            animation: iconPulse 4s ease-in-out infinite;
-        }
-
-        @keyframes iconPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(96, 165, 250, 0.5); }
-            50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(96, 165, 250, 0.8); }
-        }
-
-        /* Asymmetric Download Section */
-        .download-section {
-            margin: 8rem 0;
-            position: relative;
-        }
-
-        .download-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 4rem;
-            align-items: center;
-        }
-
-        .download-text {
-            text-align: left;
-        }
-
-        .download-title {
-            font-size: 3rem;
-            font-weight: 800;
-            margin-bottom: 2rem;
-            background: linear-gradient(135deg, #ffffff, #60a5fa);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .qr-container {
-            display: flex;
-            gap: 2rem;
-            justify-content: flex-start;
-        }
-
-        .qr-card {
-            background: rgba(59, 130, 246, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 2rem;
-            border-radius: 25px;
-            text-align: center;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .qr-card:hover {
-            transform: translateY(-15px) scale(1.05);
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .qr-code {
-            width: 150px;
-            height: 150px;
-            background: white;
-            border-radius: 15px;
-            margin: 0 auto 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: monospace;
-            font-size: 8px;
-            line-height: 1;
-            color: #000;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .qr-code::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), transparent);
-            animation: qrScan 3s ease-in-out infinite;
-        }
-
-        @keyframes qrScan {
-            0% { left: -100%; }
-            50%, 100% { left: 100%; }
-        }
-
-        /* Irregular Features Section */
-        .features-section {
-            padding: 6rem 0;
-            position: relative;
-        }
-
-        .features-title {
-            font-size: 3rem;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 4rem;
-            background: linear-gradient(135deg, #ffffff, #60a5fa);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            position: relative;
-        }
-
-        .feature-card {
-            background: rgba(59, 130, 246, 0.05);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 3rem 2rem;
-            border-radius: 30px;
-            text-align: center;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:nth-child(odd) {
-            transform: translateY(-2rem);
-        }
-
-        .feature-card:nth-child(even) {
-            transform: translateY(2rem);
-        }
-
-        .feature-card:hover {
-            transform: translateY(-1rem) scale(1.05);
-            background: rgba(59, 130, 246, 0.1);
-        }
-
-        .feature-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            animation: iconBounce 3s ease-in-out infinite;
-        }
-
-        @keyframes iconBounce {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: #60a5fa;
-        }
-
-        .feature-description {
-            color: #cbd5e1;
-            line-height: 1.6;
-        }
-        .promo-container {
-            width: 100%;
-            max-width: 1200px;
-            background: rgba(59, 130, 246, 0.05);;
-            border-radius: 24px;
-            overflow: hidden;
-            position: relative;
-            padding: 80px 60px;
-            text-align: center;
-        }
-
-        .promo-container::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 300px;
-            height: 100%;
-            background:linear-gradient(135deg, #48afec 0%, #1004c4 100%);
-            clip-path: polygon(20% 0%, 100% 0%, 100% 100%, 0% 100%);
-            z-index: 1;
-        }
-
-        .content {
-            position: relative;
-            z-index: 2;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .main-title {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: white;
-            margin-bottom: 40px;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: #e2e8f0;
-            margin-bottom: 50px;
-            line-height: 1.4;
-            font-weight: 400;
-        }
-
-        .download-btn {
-            /* background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); */
-            color: white;
-            padding: 18px 40px;
-            border: none;
-            border-radius: 50px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-            box-shadow: 0 8px 32px rgba(139, 92, 246, 0.3);
-        }
-
-        .download-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 40px rgba(47, 33, 252, 0.4);
-            background: linear-gradient(135deg, #336dea 0%, #132cea 100%);
-        }
-
-        .download-btn:active {
-            transform: translateY(0);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .promo-container {
-                padding: 60px 30px;
-                margin: 20px;
-            }
-
-            .main-title {
-                font-size: 2.5rem;
-            }
-
-            .subtitle {
-                font-size: 1.2rem;
-            }
-
-            .promo-container::before {
-                width: 200px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .promo-container {
-                padding: 40px 20px;
-            }
-
-            .main-title {
-                font-size: 2rem;
-                margin-bottom: 30px;
-            }
-
-            .subtitle {
-                font-size: 1rem;
-                margin-bottom: 40px;
-            }
-
-            .download-btn {
-                padding: 16px 32px;
-                font-size: 1.1rem;
-            }
-        }
-
-        /* Subtle animation */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .download-btn {
-            animation: float 3s ease-in-out infinite;
-        }
-
-        .download-btn:hover {
-            animation: none;
-        }
-        /* Footer */
-        footer {
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(59, 130, 246, 0.2);
-            padding: 3rem 0 2rem;
-            margin-top: 6rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 1fr 2fr 1fr;
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-logo h2 {
-            background: linear-gradient(135deg, #60a5fa, #3b82f6);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            font-size: 1.8rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-        }
-
-        .footer-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-links a:hover {
-            color: #60a5fa;
-        }
-
-        .footer-social {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-        }
-
-        .footer-social a {
-            color: #94a3b8;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .footer-social a:hover {
-            color: #60a5fa;
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(59, 130, 246, 0.1);
-            color: #64748b;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .hero-section {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 2rem;
-            }
-
-            .hero-title {
-                font-size: 3rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-                transform: none;
-            }
-
-            .download-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .qr-container {
-                justify-content: center;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .footer-social {
-                justify-content: center;
-            }
-
-            .feature-card:nth-child(odd),
-            .feature-card:nth-child(even) {
-                transform: none;
-            }
-        }
-
-        /* Interactive Elements */
-        .interactive-element {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .interactive-element:hover {
-            transform: scale(1.05);
-            filter: brightness(1.1);
-        }
-
-        /* Scroll animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-on-scroll {
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        /* ===================================
-   COMPLETE RESPONSIVE MEDIA QUERIES
-   =================================== */
-
-/* Extra Large Screens (1400px and up) */
-@media (min-width: 1400px) {
-    .container {
-        max-width: 1600px;
-        padding: 0 3rem;
-    }
-    
-    .hero-title {
-        font-size: 6.5rem;
-    }
-    
-    .phone-mockup {
-        width: 320px;
-        height: 640px;
-    }
-    
-    .feature-card {
-        padding: 4rem 3rem;
-    }
-    
-    .promo-container {
-        padding: 100px 80px;
-    }
-    
-    .main-title {
-        font-size: 4rem;
-    }
-}
-
-/* Large Desktops (1200px to 1399px) */
-@media (min-width: 1200px) and (max-width: 1399px) {
-    .container {
-        max-width: 1200px;
-        padding: 0 2.5rem;
-    }
-    
-    .hero-title {
-        font-size: 5rem;
-    }
-    
-    .services-grid {
-        gap: 1.5rem;
-    }
-    
-    .features-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-/* Standard Desktops (992px to 1199px) */
-@media (min-width: 992px) and (max-width: 1199px) {
-    .container {
-        max-width: 1000px;
-        padding: 0 2rem;
-    }
-    
-    .hero-section {
-        gap: 3rem;
-    }
-    
-    .hero-title {
-        font-size: 4.5rem;
-    }
-    
-    .phone-mockup {
-        width: 250px;
-        height: 500px;
-    }
-    
-    .download-content {
-        gap: 3rem;
-    }
-    
-    .qr-code {
-        width: 130px;
-        height: 130px;
-        font-size: 7px;
-    }
-    
-    .promo-container {
-        padding: 70px 50px;
-    }
-}
-
-/* Tablets Landscape (768px to 991px) */
-@media (min-width: 768px) and (max-width: 991px) {
-    .container {
-        padding: 0 1.5rem;
-    }
-    
-    .hero-section {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 3rem;
-        padding: 3rem 0;
-    }
-    
-    .hero-title {
-        font-size: 4rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .hero-title::after {
-        display: none;
-    }
-    
-    .hero-subtitle {
-        max-width: none;
-        font-size: 1.2rem;
-    }
-    
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-        transform: none;
-        max-width: 600px;
-        margin: 2rem auto;
-    }
-    
-    .phone-mockup {
-        width: 220px;
-        height: 440px;
-        transform: perspective(1000px) rotateY(0deg);
-    }
-    
-    .download-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 3rem;
-    }
-    
-    .download-title {
-        font-size: 2.5rem;
-    }
-    
-    .qr-container {
-        justify-content: center;
-        gap: 1.5rem;
-    }
-    
-    .features-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-    
-    .feature-card:nth-child(odd),
-    .feature-card:nth-child(even) {
-        transform: none;
-    }
-    
-    .feature-card:hover {
-        transform: translateY(-0.5rem) scale(1.02);
-    }
-    
-    .features-title {
-        font-size: 2.5rem;
-    }
-    
-    .promo-container {
-        padding: 60px 40px;
-    }
-    
-    .main-title {
-        font-size: 3rem;
-    }
-    
-    .subtitle {
-        font-size: 1.3rem;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr 2fr 1fr;
-        gap: 1.5rem;
-    }
-}
-
-/* Tablets Portrait (576px to 767px) */
-@media (min-width: 576px) and (max-width: 767px) {
-    .container {
-        padding: 0 1.5rem;
-    }
-    
-    .header-content {
-        flex-direction: column;
-        text-align: center;
-        gap: 1rem;
-    }
-    
-    .logo {
-        font-size: 2rem;
-    }
-    
-    .tagline {
-        margin-left: 0;
-        text-align: center;
-        max-width: none;
-    }
-    
-    .hero-section {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
-        padding: 2rem 0;
-        min-height: auto;
-    }
-    
-    .hero-title {
-        font-size: 3.5rem;
-        line-height: 1;
-    }
-    
-    .hero-subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-    }
-    
-    .services-grid {
-        grid-template-columns: 1fr;
-        transform: none;
-        gap: 1rem;
-        max-width: 400px;
-        margin: 2rem auto;
-    }
-    
-    .service-card {
-        padding: 1.2rem;
-        text-align: center;
-    }
-    
-    .phone-mockup {
-        width: 200px;
-        height: 400px;
-        transform: none;
-    }
-    
-    .app-icon {
-        width: 60px;
-        height: 60px;
-        font-size: 1.5rem;
-    }
-    
-    .download-title {
-        font-size: 2.2rem;
-    }
-    
-    .qr-container {
-        flex-direction: column;
-        align-items: center;
-        gap: 1.5rem;
-    }
-    
-    .qr-card {
-        padding: 1.5rem;
-        width: 100%;
-        max-width: 250px;
-    }
-    
-    .qr-code {
-        width: 120px;
-        height: 120px;
-        font-size: 6px;
-    }
-    
-    .features-section {
-        padding: 4rem 0;
-    }
-    
-    .features-title {
-        font-size: 2.2rem;
-        margin-bottom: 3rem;
-    }
-    
-    .features-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .feature-card {
-        padding: 2rem 1.5rem;
-    }
-    
-    .feature-icon {
-        font-size: 3rem;
-    }
-    
-    .promo-container {
-        padding: 50px 30px;
-        margin: 20px;
-    }
-    
-    .main-title {
-        font-size: 2.8rem;
-    }
-    
-    .subtitle {
-        font-size: 1.2rem;
-    }
-    
-    .promo-container::before {
-        width: 150px;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
-    }
-    
-    .footer-social {
-        justify-content: center;
-    }
-}
-
-/* Mobile Large (481px to 575px) */
-@media (min-width: 481px) and (max-width: 575px) {
-    .container {
-        padding: 0 1rem;
-    }
-    
-    .logo {
-        font-size: 1.8rem;
-    }
-    
-    .hero-title {
-        font-size: 3rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 1rem;
-    }
-    
-    .services-grid {
-        max-width: 350px;
-    }
-    
-    .service-card {
-        padding: 1rem;
-    }
-    
-    .service-card h3 {
-        font-size: 1rem;
-    }
-    
-    .phone-mockup {
-        width: 180px;
-        height: 360px;
-    }
-    
-    .download-title {
-        font-size: 2rem;
-    }
-    
-    .qr-code {
-        width: 110px;
-        height: 110px;
-        font-size: 5px;
-    }
-    
-    .features-title {
-        font-size: 2rem;
-    }
-    
-    .feature-card {
-        padding: 1.5rem 1rem;
-        border-radius: 20px;
-    }
-    
-    .feature-icon {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-    
-    .feature-title {
-        font-size: 1.3rem;
-    }
-    
-    .promo-container {
-        padding: 40px 25px;
-    }
-    
-    .main-title {
-        font-size: 2.5rem;
-        margin-bottom: 30px;
-    }
-    
-    .subtitle {
-        font-size: 1.1rem;
-        margin-bottom: 40px;
-    }
-    
-    .download-btn {
-        padding: 16px 32px;
-        font-size: 1.1rem;
-    }
-}
-
-/* Mobile Standard (376px to 480px) */
-@media (min-width: 376px) and (max-width: 480px) {
-    .container {
-        padding: 0 1rem;
-    }
-    
-    .logo {
-        font-size: 1.6rem;
-    }
-    
-    .tagline {
-        font-size: 0.9rem;
-    }
-    
-    .hero-title {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 0.95rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .services-grid {
-        max-width: 381px;
-        gap: 0.8rem;
-    }
-    
-    .service-card {
-        padding: 0.8rem;
-        border-radius: 15px;
-    }
-    
-    .service-card h3 {
-        font-size: 0.9rem;
-        margin-bottom: 0.3rem;
-    }
-    
-    .service-card p {
-        font-size: 0.8rem;
-    }
-    
-    .phone-mockup {
-        width: 160px;
-        height: 320px;
-        border-radius: 30px;
-        padding: 8px;
-    }
-    
-    .phone-screen {
-        border-radius: 22px;
-    }
-    
-    .app-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 1.3rem;
-        margin-bottom: 0.8rem;
-    }
-    
-    .download-section {
-        margin: 4rem 0;
-    }
-    
-    .download-title {
-        font-size: 1.8rem;
-        margin-bottom: 1rem;
-    }
-    
-    .qr-card {
-        padding: 1.2rem;
-    }
-    
-    .qr-code {
-        width: 100px;
-        height: 100px;
-        font-size: 4px;
-        line-height: 1;
-    }
-    
-    .features-section {
-        padding: 3rem 0;
-    }
-    
-    .features-title {
-        font-size: 1.8rem;
-        margin-bottom: 2rem;
-    }
-    
-    .feature-card {
-        padding: 1.2rem 0.8rem;
-        border-radius: 18px;
-    }
-    
-    .feature-icon {
-        font-size: 2.2rem;
-    }
-    
-    .feature-title {
-        font-size: 1.2rem;
-    }
-    
-    .feature-description {
-        font-size: 0.9rem;
-    }
-    
-    .promo-container {
-        padding: 35px 20px;
-        border-radius: 20px;
-        max-width: 351px;
-    }
-    
-    .main-title {
-        font-size: 2.2rem;
-        margin-bottom: 25px;
-    }
-    
-    .subtitle {
-        font-size: 1rem;
-        margin-bottom: 35px;
-    }
-    
-    .download-btn {
-        padding: 14px 28px;
-        font-size: 1rem;
-    }
-    
-    .footer-content {
-        gap: 1.5rem;
-    }
-    
-    .footer-links {
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-    
-    .footer-social a {
-        font-size: 1.3rem;
-    }
-}
-
-/* Mobile Small (320px to 375px) */
-@media (max-width: 375px) {
-    .container {
-        padding: 0 0.8rem;
-    }
-    
-    .header-content {
-        padding: 1rem 0;
-    }
-    
-    .logo {
-        font-size: 1.4rem;
-    }
-    
-    .tagline {
-        font-size: 0.8rem;
-        margin-top: 0.5rem;
-    }
-    
-    .hero-section {
-        padding: 1.5rem 0;
-        gap: 1.5rem;
-    }
-    
-    .hero-title {
-        font-size: 2.2rem;
-        margin-bottom: 1rem;
-        line-height: 0.95;
-    }
-    
-    .hero-subtitle {
-        font-size: 0.9rem;
-        margin-bottom: 1.5rem;
-    }
-    
-    .services-grid {
-        max-width: 280px;
-        gap: 0.6rem;
-    }
-    
-    .service-card {
-        padding: 0.7rem;
-        border-radius: 12px;
-    }
-    
-    .service-card h3 {
-        font-size: 0.85rem;
-        margin-bottom: 0.2rem;
-    }
-    
-    .service-card p {
-        font-size: 0.75rem;
-    }
-    
-    .phone-mockup {
-        width: 140px;
-        height: 280px;
-        border-radius: 25px;
-        padding: 6px;
-    }
-    
-    .phone-screen {
-        border-radius: 19px;
-    }
-    
-    .app-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
-        margin-bottom: 0.6rem;
-        border-radius: 15px;
-    }
-    
-    .download-section {
-        margin: 3rem 0;
-    }
-    
-    .download-title {
-        font-size: 1.6rem;
-        margin-bottom: 1rem;
-    }
-    
-    .qr-container {
-        gap: 1rem;
-    }
-    
-    .qr-card {
-        padding: 1rem;
-        border-radius: 15px;
-    }
-    
-    .qr-code {
-        width: 90px;
-        height: 90px;
-        font-size: 3px;
-        border-radius: 10px;
-    }
-    
-    .features-section {
-        padding: 2.5rem 0;
-    }
-    
-    .features-title {
-        font-size: 1.6rem;
-        margin-bottom: 2rem;
-    }
-    
-    .features-grid {
-        gap: 1rem;
-    }
-    
-    .feature-card {
-        padding: 1rem 0.6rem;
-        border-radius: 15px;
-    }
-    
-    .feature-icon {
-        font-size: 2rem;
-        margin-bottom: 0.8rem;
-    }
-    
-    .feature-title {
-        font-size: 1.1rem;
-        margin-bottom: 0.6rem;
-    }
-    
-    .feature-description {
-        font-size: 0.85rem;
-        line-height: 1.5;
-    }
-    
-    .promo-container {
-        padding: 30px 15px;
-        border-radius: 18px;
-        margin: 15px 0;
-    }
-    
-    .main-title {
-        font-size: 2rem;
-        margin-bottom: 20px;
-        line-height: 1.1;
-    }
-    
-    .subtitle {
-        font-size: 0.95rem;
-        margin-bottom: 30px;
-        line-height: 1.4;
-    }
-    
-    .download-btn {
-        padding: 12px 24px;
-        font-size: 0.95rem;
-        border-radius: 40px;
-    }
-    
-    .promo-container::before {
-        width: 100px;
-        clip-path: polygon(30% 0%, 100% 0%, 100% 100%, 0% 100%);
-    }
-    
-    footer {
-        padding: 2rem 0 1.5rem;
-        margin-top: 4rem;
-    }
-    
-    .footer-content {
-        gap: 1.2rem;
-    }
-    
-    .footer-logo h2 {
-        font-size: 1.4rem;
-    }
-    
-    .footer-links {
-        flex-wrap: wrap;
-        gap: 0.8rem;
-        justify-content: center;
-    }
-    
-    .footer-links a {
-        font-size: 0.9rem;
-    }
-    
-    .footer-social {
-        gap: 0.8rem;
-    }
-    
-    .footer-social a {
-        font-size: 1.2rem;
-    }
-    
-    .footer-bottom {
-        padding-top: 1.5rem;
-        font-size: 0.8rem;
-    }
-}
-
-/* Extra Small Mobile (below 320px) */
-@media (max-width: 319px) {
-    .container {
-        padding: 0 0.5rem;
-    }
-    
-    .logo {
-        font-size: 1.2rem;
-    }
-    
-    .hero-title {
-        font-size: 1.8rem;
-    }
-    
-    .hero-subtitle {
-        font-size: 0.8rem;
-    }
-    
-    .services-grid {
-        max-width: 250px;
-    }
-    
-    .service-card {
-        padding: 0.5rem;
-    }
-    
-    .phone-mockup {
-        width: 120px;
-        height: 240px;
-    }
-    
-    .app-icon {
-        width: 35px;
-        height: 35px;
-        font-size: 1rem;
-    }
-    
-    .qr-code {
-        width: 80px;
-        height: 80px;
-        font-size: 2px;
-    }
-    
-    .feature-icon {
-        font-size: 1.8rem;
-    }
-    
-    .main-title {
-        font-size: 1.8rem;
-    }
-    
-    .subtitle {
-        font-size: 0.9rem;
-    }
-    
-    .download-btn {
-        padding: 10px 20px;
-        font-size: 0.9rem;
-    }
-}
-
-/* Landscape Orientation for Mobile */
-@media (max-height: 500px) and (orientation: landscape) {
-    .hero-section {
-        min-height: auto;
-        padding: 2rem 0;
-    }
-    
-    .hero-title {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
-    }
-    
-    .services-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 0.5rem;
-        margin: 1rem auto;
-    }
-    
-    .phone-mockup {
-        width: 160px;
-        height: 320px;
-    }
-    
-    .features-section {
-        padding: 3rem 0;
-    }
-    
-    .promo-container {
-        padding: 40px 30px;
-    }
-}
-
-/* High DPI / Retina Displays */
-@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
-    .qr-code {
-        image-rendering: -webkit-optimize-contrast;
-        image-rendering: crisp-edges;
-    }
-    
-    .app-icon {
-        border: 0.5px solid rgba(255, 255, 255, 0.1);
-    }
-}
-
-/* Print Styles */
-@media print {
-    .bg-animated,
-    .floating-orbs,
-    .download-btn,
-    footer {
-        display: none;
-    }
-    
-    body {
-        background: white;
-        color: black;
-    }
-    
-    .hero-title,
-    .download-title,
-    .features-title,
-    .main-title {
-        color: black;
-    }
-    
-    .container {
-        max-width: none;
-        padding: 0;
-    }
-}
-
-/* Reduced Motion */
-@media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-    }
-    
-    .bg-animated,
-    .floating-orbs {
-        animation: none;
-    }
-    
-    .phone-mockup {
-        transform: none;
-    }
-}
-
-/* Dark Mode Support (if system preference) */
-@media (prefers-color-scheme: dark) {
-    /* The current design is already dark, but we can enhance it */
-    .qr-code {
-        background: #f8fafc;
-    }
-}
-
-/* High Contrast Mode */
-@media (prefers-contrast: high) {
-    .service-card,
-    .feature-card,
-    .qr-card {
-        border: 2px solid #60a5fa;
-    }
-    
-    .hero-title,
-    .download-title,
-    .features-title {
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
-    }
-}
+       
     </style>
 </head>
 <body>
@@ -1625,49 +39,145 @@
                     courses et services financiers dans une interface révolutionnaire.
                 </p>
                 
-                <div class="services-grid">
-                    <div class="service-card interactive-element">
-                        <h3>🚗 MoudirList Ride</h3>
-                        <p>Transport intelligent</p>
+                        <div class="services-grid">
+                        <div class="service-card interactive-element">
+                            <h3>🛡️ MoudirList Secure</h3>
+                            <p>Protection anti-fraude</p>
+                        </div>
+                        <div class="service-card interactive-element">
+                            <h3>✅ MoudirList Verify</h3>
+                            <p>Vérification d'identité</p>
+                        </div>
+                        <div class="service-card interactive-element">
+                            <h3>🤝 MoudirList Trust</h3>
+                            <p>Communauté de confiance</p>
+                        </div>
+                        <div class="service-card interactive-element">
+                            <h3>📊 MoudirList Analytics</h3>
+                            <p>Analyse comportementale</p>
+                        </div>
                     </div>
-                    <div class="service-card interactive-element">
-                        <h3>⚡ MoudirList Express</h3>
-                        <p>Livraisons ultra-rapides</p>
-                    </div>
-                    <div class="service-card interactive-element">
-                        <h3>🛒 MoudirList Grocery</h3>
-                        <p>Courses simplifiées</p>
-                    </div>
-                    <div class="service-card interactive-element">
-                        <h3>💳 MoudirList Cash</h3>
-                        <p>Finances digitales</p>
-                    </div>
-                </div>
             </div>
 
             <div class="phone-container">
                 <div class="phone-mockup">
                     <div class="phone-screen">
-                        <div class="app-icon">M</div>
-                        <div style="color: white; font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">MoudirList</div>
-                        <div style="color: rgba(255,255,255,0.8); font-size: 0.9rem;">⭐ 4.8 • 10M+ utilisateurs</div>
+                        <div class="app-icon"><img src="./assets/logo.png" alt=""></div>
+                        <div style="color: rgb(0, 0, 0); font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">MoudirList</div>
+                        <div style="color: rgba(0, 0, 0, 0.8); font-size: 0.9rem;">⭐ 4.8 • 10M+ utilisateurs</div>
                     </div>
                 </div>
             </div>
         </section>
+        
+        <section class="security-section" style="padding: 0px;">
+         <div class="security-content">
+            <h2 class="security-title">Téléchargez maintenant</h2>
+                    <p class="security-subtitle" style="margin-bottom: 1rem;">
+                        MoudirList est disponible sur Android et iOS. 
+                        Téléchargez l'application dès maintenant pour profiter de tous ses services.
+            </p>
+            <div class="app-container">
+                    <a href="#" class="download-badge">
+                        <i class="fab fa-google-play"></i>
+                        <div>
+                            <small>Télécharger sur</small>
+                            <strong>Google Play</strong>
+                        </div>
+                    </a>
+                    <a href="#" class="download-badge">
+                        <i class="fab fa-apple"></i>
+                        <div>
+                            <small>Télécharger sur</small>
+                            <strong>App Store</strong>
+                        </div>
+                    </a>
+            </div>
+             
+            <img src="/assets/mockups.png" style="    position: relative; width: 100%; height: 100%;" alt="">
+        </div>
+        </section>
 
-        <!-- Asymmetric Download Section -->
-        <section class="download-section">
-            <div class="download-content">
-                <div class="download-text">
-                    <h2 class="download-title">Téléchargez maintenant</h2>
-                    <p style="color: #cbd5e1; font-size: 1.2rem; line-height: 1.6;">
-                        Scannez le QR code pour découvrir une nouvelle façon 
-                        de vivre votre quotidien digital.
-                    </p>
+        <!-- Irregular Features Section -->
+       <section class="security-section">
+         <div class="security-content">
+            <h2 class="security-title">Protégez votre e-commerce avec MoudirList</h2>
+            <p class="security-subtitle">
+                Notre équipe d'experts approuve chaque demande d'adhésion à la communauté. 
+                Identifiez les fraudeurs, protégez vos transactions et construisez un réseau de confiance.
+            </p>
+            
+            <div class="security-features">
+                <div class="security-card interactive-element">
+                    <div class="security-icon">🔍</div>
+                    <h3>Vérification Experte</h3>
+                    <p>Notre équipe d'experts valide chaque nouveau membre avant son intégration à la communauté</p>
                 </div>
                 
-                <div class="qr-container">
+                <div class="security-card interactive-element">
+                    <div class="security-icon">⚠️</div>
+                    <h3>Signalement Collaboratif</h3>
+                    <p>Signalez les clients problématiques et consultez les avis de la communauté</p>
+                </div>
+                
+                <div class="security-card interactive-element">
+                    <div class="security-icon">🛡️</div>
+                    <h3>Base de Données Sécurisée</h3>
+                    <p>Accédez à une base de données partagée des acheteurs et vendeurs vérifiés</p>
+                </div>
+            </div>
+          </div>
+        </section>
+
+
+<section class="faq-section">
+  <h2 class="faq-title">Questions Fréquemment Posées</h2>
+  <div class="faq-container">
+    <div class="faq-item">
+      <h3 class="faq-question">Existe-t-il une offre gratuite&nbsp;?</h3>
+      <p class="faq-answer">
+        Oui&nbsp;! Nous proposons une formule gratuite généreuse avec toutes les fonctionnalités essentielles. Vous pouvez passer à une offre supérieure à tout moment si vous avez besoin de plus de possibilités.
+      </p>
+    </div>
+    <div class="faq-item">
+      <h3 class="faq-question">Puis-je annuler ou modifier mon abonnement plus tard&nbsp;?</h3>
+      <p class="faq-answer">
+        Absolument. Vous pouvez passer à une offre supérieure ou inférieure, ou annuler votre abonnement à tout moment depuis votre tableau de bord.
+      </p>
+    </div>
+    <div class="faq-item">
+      <h3 class="faq-question">Proposez-vous un support&nbsp;?</h3>
+      <p class="faq-answer">
+        Nous offrons un support 24h/24 et 7j/7 par e-mail et chat en direct pour tous les utilisateurs payants, et un support communautaire pour les utilisateurs du forfait gratuit.
+      </p>
+    </div>
+  </div>
+</section>
+
+
+
+        <section>
+            <div class="promo-container">
+                <div class="content">
+                    <h1 class="main-title">Commencez l'expérience MoudirList</h1>
+                    <p class="subtitle">
+                        Utilisez dès maintenant tous les services MoudirList<br>
+                        dans une seule et même application
+                    </p>
+                    <a href="#" class="download-btn">Télécharger MoudirList</a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer class="new-footer">
+    <div class="container">
+        <div class="footer-main">
+            <!-- Logo and Download Section -->
+            <div class="footer-brand">
+                <div class="footer-logo-large">MoudirList</div>
+                <div class="footer-downloads">
+                    <div class="qr-container">
                     <div class="qr-card interactive-element">
                         <div class="qr-code">
                             ██████████████████████████████<br>
@@ -1710,84 +220,59 @@
                         <p style="color: #94a3b8; font-size: 0.9rem;">App Store</p>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- Irregular Features Section -->
-        <section class="features-section">
-            <h2 class="features-title">Pourquoi MoudirList révolutionne tout ?</h2>
-            
-            <div class="features-grid">
-                <div class="feature-card interactive-element animate-on-scroll">
-                    <div class="feature-icon">🚀</div>
-                    <h3 class="feature-title">Vitesse Quantique</h3>
-                    <p class="feature-description">
-                        Algorithmes d'IA ultra-performants pour des réponses instantanées 
-                        et une expérience utilisateur révolutionnaire.
-                    </p>
-                </div>
-
-                <div class="feature-card interactive-element animate-on-scroll">
-                    <div class="feature-icon">🎯</div>
-                    <h3 class="feature-title">Écosystème Unifié</h3>
-                    <p class="feature-description">
-                        Une plateforme unique qui connecte tous vos besoins quotidiens 
-                        dans un flux de travail intuitif et naturel.
-                    </p>
-                </div>
-
-                <div class="feature-card interactive-element animate-on-scroll">
-                    <div class="feature-icon">🔮</div>
-                    <h3 class="feature-title">IA Prédictive</h3>
-                    <p class="feature-description">
-                        Intelligence artificielle qui apprend de vos habitudes pour 
-                        anticiper vos besoins avant même que vous les ressentiez.
-                    </p>
                 </div>
             </div>
-        </section>
 
-        <section>
-            <div class="promo-container">
-                <div class="content">
-                    <h1 class="main-title">Commencez l'expérience MoudirList</h1>
-                    <p class="subtitle">
-                        Utilisez dès maintenant tous les services MoudirList<br>
-                        dans une seule et même application
-                    </p>
-                    <a href="#" class="download-btn">Télécharger MoudirList</a>
-                </div>
+            <!-- Services Section -->
+            <div class="footer-section">
+                <h3>Nos services</h3>
+                <ul>
+                    <li><a href="#">MoudirList Secure</a></li>
+                    <li><a href="#">MoudirList Verify</a></li>
+                    <li><a href="#">MoudirList Trust</a></li>
+                    <li><a href="#">MoudirList Analytics</a></li>
+                    <li><a href="#">Commande pour quelqu'un d'autre</a></li>
+                </ul>
             </div>
-        </section>
-    </div>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-logo">
-                    <h2>MoudirList</h2>
-                </div>
-                <div class="footer-links">
-                    <a href="#">Innovation</a>
-                    <a href="#">Contact</a>
-                    <a href="#">Révolution</a>
-                    <a href="#">Futur</a>
-                </div>
-                <div class="footer-social">
-                    <a href="#" class="interactive-element"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="interactive-element"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="interactive-element"><i class="fab fa-linkedin"></i></a>
-                    <a href="#" class="interactive-element"><i class="fab fa-twitter"></i></a>
-                </div>
+            <!-- Partners Section -->
+            <div class="footer-section">
+                <h3>Nos partenaires</h3>
+                <ul>
+                    <li><a href="#">E-commerçants</a></li>
+                    <li><a href="#">Vendeurs Vérifiés</a></li>
+                    <li><a href="#">Boutiques</a></li>
+                    <li><a href="#">Marketplaces</a></li>
+                </ul>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 MoudirList. L'avenir commence ici.</p>
+
+            <!-- Company Section -->
+            <div class="footer-section">
+                <h3>Entreprise</h3>
+                <ul>
+                    <li><a href="#">À propos</a></li>
+                    <li><a href="#">Carrières</a></li>
+                    <li><a href="#">Actualités</a></li>
+                    <li><a href="#">Support</a></li>
+                </ul>
             </div>
         </div>
-    </footer>
 
-    <script>
-        // Advanced JavaScript interactions
+        <!-- Work with us Section -->
+        <div class="footer-work">
+            <h3>Travaillez avec nous</h3>
+            <div class="work-links">
+                <a href="#" class="work-link">Devenir Partenaire</a>
+                <a href="#" class="work-link">Devenir Expert Vérificateur</a>
+                <a href="#" class="work-link">Rejoindre l'équipe</a>
+            </div>
+        </div>
+    </div>
+</footer>
+</body>
+
+<script>
+  // Advanced JavaScript interactions
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -100px 0px'
@@ -1810,8 +295,7 @@
         document.addEventListener('mousemove', (e) => {
             const orbs = document.querySelectorAll('.orb');
             const x = (e.clientX / window.innerWidth) - 0.5;
-    
+        });
+</script>
 
-        script>
-           
-        </body>
+      
