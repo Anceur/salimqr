@@ -1,3 +1,12 @@
+html {
+    /* Prevent zoom issues by using relative units */
+    font-size: clamp(14px, 4vw, 18px);
+    -webkit-text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+}
+
+ 
  * {
             margin: 0;
             padding: 0;
@@ -10,6 +19,80 @@
             color: white;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            
+            /* Prevent zoom on mobile devices */
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
+            text-size-adjust: 100%;
+            touch-action: manipulation;
+        }
+
+        /* Prevent zoom on form inputs */
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        textarea {
+            -webkit-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            text-size-adjust: none;
+            font-size: 16px;
+        }
+
+        /* Prevent zoom on focus */
+        input:focus,
+        textarea:focus,
+        select:focus {
+            width: 100%;
+            max-width: 100%;
+            font-size: 16px;
+        }
+
+        /* Prevent zoom on interactive elements */
+        .interactive-element {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+            cursor: pointer;
+        }
+
+        /* Prevent zoom on container elements */
+        .container {
+            -webkit-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            text-size-adjust: none;
+            touch-action: manipulation;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+        /* Prevent zoom on phone mockup */
+        .phone-container {
+            touch-action: manipulation;
+            -webkit-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            text-size-adjust: none;
+            max-width: 100%;
+         
+        }
+
+        /* Prevent zoom on images */
+        img {
+            max-width: 100%;
+            height: auto;
+            touch-action: manipulation;
+            -webkit-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            text-size-adjust: none;
+        }
+
+        /* Prevent zoom on sections */
+        section {
+            touch-action: manipulation;
+            -webkit-text-size-adjust: none;
+            -ms-text-size-adjust: none;
+            text-size-adjust: none;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         /* Animated background with floating elements */
@@ -54,7 +137,7 @@
         }
 
         .container {
-            max-width: 1400px;
+            width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
             position: relative;
@@ -1526,7 +1609,7 @@
     }
     
     .services-grid {
-        max-width: 381px;
+        max-width: 450px;
         gap: 0.8rem;
     }
     
@@ -1650,9 +1733,10 @@
     }
     
     .header-content {
-        padding: 1rem 0;
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
     }
-    
     .logo {
         font-size: 1.4rem;
     }
@@ -1679,7 +1763,7 @@
     }
     
     .services-grid {
-        max-width: 280px;
+        max-width: 360px;
         gap: 0.6rem;
     }
     
@@ -2012,5 +2096,64 @@
     .download-title,
     .features-title {
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    }
+}
+
+@media (max-width: 768px) {
+    .footer-main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px; /* فراغ بين كل قسم */
+    }
+
+    .footer-brand,
+    .footer-section {
+        width: 100%;
+    }
+
+    .footer-logo-large {
+        font-size: 24px;
+        margin-bottom: 10px;
+    }
+
+    .footer-section h3 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+
+    .footer-section ul {
+        padding-left: 0;
+    }
+
+    .footer-section ul li {
+        margin-bottom: 8px;
+    }
+
+    .footer-work {
+        text-align: center;
+        margin-top: 30px;
+    }
+
+    .work-links {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
+    }
+
+    .work-link {
+        width: 90%;
+        text-align: center;
+        padding: 10px;
+        background-color: #333;
+        color: #ccc;
+        border-radius: 5px;
+    }
+
+    .work-link:hover {
+        background-color: #444;
+        color: #fff;
     }
 }
